@@ -10,7 +10,6 @@ export async function GET(request, {params}) {
     var {email} = JSON.parse(info.info);
     const regexMapa = new RegExp(email, 'i'); // Create a case-insensitive regular expression
     const mapas = await Mapa.find( {usuario: regexMapa });
-    console.log(mapas);
 
     if (mapas.length === 0) {
         return NextResponse.json({ message: "No se encontraron mapas con esa descipcion" }, { status: 404 });
