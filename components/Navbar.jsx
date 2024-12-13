@@ -109,7 +109,7 @@ export default function Navbar() {
                             onClick={() => signIn("google")} /* PRE: handleLogin    OAUTH: () => signIn("google")*/
                             className="bg-blue-500 text-white px-5 py-2 rounded-full font-bold hover:bg-blue-600 transition duration-200"
                         >
-                            Iniciar sesión BUENO
+                            Iniciar sesión
                         </button>
                     )}
 

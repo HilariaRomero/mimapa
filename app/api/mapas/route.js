@@ -15,8 +15,9 @@ export async function POST(request){
 // Obtener todas 
 export async function GET(){
     await connectionDB();
-    const posts = await Mapa.find();
-    return NextResponse.json({posts});
+    const mapas = await Mapa.find();
+    console.log();
+    return NextResponse.json({mapas});
 }
 
 // Borrar una

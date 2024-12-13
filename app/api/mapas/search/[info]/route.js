@@ -7,14 +7,13 @@ export async function GET(request, {params}) {
     const info = await params; // Asumimos que pasamos la letra en los parámetros de la URL
     await connectionDB();
     
-    var {usuario} = JSON.parse(info.info);
-    
-    // const regexCiudad = new RegExp(ciudad, 'i'); // Create a case-insensitive regular expression
-    const posts = await Mapa.find( {usuario: usuario });
+    var {email} = JSON.parse(info.info);
+    const regexMapa = new RegExp(email, 'i'); // Create a case-insensitive regular expression
+    const mapas = await Mapa.find( {usuario: regexMapa });
+    console.log(mapas);
 
-
-    if (posts.length === 0) {
+    if (mapas.length === 0) {
         return NextResponse.json({ message: "No se encontraron mapas con esa descipcion" }, { status: 404 });
     }
-    return NextResponse.json({ posts }, { status: 200 });
+    return NextResponse.json({ mapas }, { status: 200 });
 }

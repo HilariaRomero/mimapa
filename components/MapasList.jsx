@@ -10,7 +10,6 @@ import {useSession, signIn, signOut} from "next-auth/react";
 import * as React from "react";
 
 import { HiPencilAlt, HiArrowSmLeft, HiHeart } from "react-icons/hi";
-import RemoveBtnmapa from "@/components/RemoveBtnPost";
 // import MeGusta from "@/components/MeGusta";
 // import OpenStreetMap from "@/components/OpenStreetMap";
 
@@ -21,8 +20,8 @@ const OpenStreetMap = dynamic(() => import('@/components/OpenStreetMap'), {
   });
 
   
-export default function PostsList() {
-// const PostsList = () => {
+export default function MapasList() {
+// const MapasList = () => {
 const {data:session} = useSession();
 
 const [mapas, setmapas] = useState([]);                       // Estado para las mapas
@@ -32,7 +31,7 @@ const [cargando, setCargando] = useState(true);                     // Estado pa
 const [key, setKey] = useState(0);
 
 // Estados para filtros de búsqueda
-const [filtroEmail, setFiltroEmail] = useState("");   // Estado para el filtro de la palabra clave
+const [filtroEmail, setFiltroEmail] = useState('');   // Estado para el filtro de la palabra clave
     
 const router = useRouter();
 
@@ -91,7 +90,7 @@ return (
     <div className="px-8">
         {/* Sesion */}
         {session && <h1>Bienvenido, {session.user.nombre}</h1>}
-
+        {console.log()}
         {/* mapas */}
         <div className="my-4">
             <h1 className="text-4xl font-bold text-gray-800">Mapas</h1>
@@ -101,7 +100,7 @@ return (
         {session && <div className="my-4 flex justify-start gap-x-2">
             <Link href={`/mapa/addMapa`}>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded-md font-bold w-fit hover:bg-blue-600 transition duration-200">
-                    Añadir nueva mapa
+                    Añadir nuevo mapa
                 </button>
             </Link>
         </div>}
@@ -148,46 +147,40 @@ return (
             ) : (
                 // filteredmapas.sort((a,b)=> b.likes-a.likes).map((mapa) => (
                 filteredmapas.map((mapa) => (
-                    <div key={mapa._id} className="relative p-4 border border-slate-300 my-3 flex flex-col sm:flex-row justify-between gap-5 items-start hover:bg-gray-200 transition duration-300">
+                    <div key={mapa._id} className="relative p-4 border border-slate-300 my-3 flex flex-col hover:bg-gray-200 transition duration-300">
                         {/* Botones de la mapa */}
-                        <div className="absolute top-4 right-4 flex gap-2">
+                        {/* <div className="absolute top-4 right-4 flex gap-2"> */}
 
-                            {/* Botón de borrar */}
-                            {/* {session && session.user.name == mapa.usuario &&
-                            <div onClick={handleForceReload}>
-                                <RemoveBtnmapa id={mapa._id} />
-                            </div>
-                            } */}
                             {/* Botón de editar */}
                             {/* {session && session.user.name == mapa.usuario &&
                             <Link href={`/mapa/${mapa._id}/editPost`}>
                                 <HiPencilAlt size={30} />
                             </Link>
                             } */}
-                        </div>
+                        {/* </div> */}
 
+                        <div className="flex-1">
+                            {/* <Link href={`/mapa/${mapa._id}`}> */}
+                                <h2 className="font-bold text-2xl">{mapa.usuario}</h2>
+                            {/* </Link> */}
+                        </div>
                             
                             
                         {/* MAPAS */}
                         {mapa.direccion && (
                             <div>
                                 <h3 className="text-lg font-semibold">Ubicación:</h3>
-                                <OpenStreetMap address={mapa.direccion}/>
-                            </div>
-                        )}
-
-                        <div className="flex-1">
-                            {/* <Link href={`/mapa/${mapa._id}`}> */}
-                                <h2 className="font-bold text-2xl">{mapa.usuario}</h2>
-                            {/* </Link> */}
-
                             {/* Direcciones */}
                             <div className="flex items-center gap-2">
                                 <span className="italic">{mapa.direccion}</span>
                             </div>
+                                <OpenStreetMap address={mapa.direccion}/>
                             
                             
-                        </div>
+                            
+                            </div>
+                        )}
+
                         {/* IMAGENES */}
                         {mapa.imagenes.length != 0 && <div className="flex flex-col items-center">
                             {mapa.imagenes.map((imagen) => (

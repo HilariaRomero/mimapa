@@ -61,7 +61,7 @@ export default function AddMapa() {
         }
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_DOMINIO}/api/publicaciones`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_DOMINIO}/api/mapas`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
@@ -106,7 +106,7 @@ export default function AddMapa() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <label>Usuario</label>
                 <input
-                    onChange={(e) => setUsuario(session.user.name)}
+                    onChange={(e) => setUsuario(session.user.email)}
                     value={usuario}
                     className="border border-slate-500 px-4 py-2"
                     type="text"
